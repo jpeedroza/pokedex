@@ -1,22 +1,35 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import ReactDom from 'react-dom'
-import styled from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
+import Pokemons from './components/Pokemons'
+import Headers from './components/Headers'
+import Footer from './components/Footer'
+import Creditos from './components/Creditos'
+import SearchBar from './components/SearchBar'
+
+const GlobalStyle = createGlobalStyle`
+  *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 62.50%;
+  }
+`
 
 export default function App() {
-  const [poke, setPoke] = useState([]);
-
-  useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokedex/1').then(res => res.json())
-      .then(data => {
-        const {pokemon_entries} = data;
-        setPoke(pokemon_entries);
-      })
-  }, [])
-
+  
   return (
-    <div>
-      <ul>{poke.map(current => <Cards>{current.pokemon_species.name}</Cards>)}</ul>
-    </div>
+    <>
+      <GlobalStyle/>
+      <Headers>
+        <SearchBar/>
+      </Headers>
+      <Pokemons/>
+      <Footer>
+        <Creditos/>
+      </Footer> 
+    </>
   )
 }
 
