@@ -1,31 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Cards from './Cards';
 
-export default function Pokemons() { 
-  const urlDex = 'https://pokeapi.co/api/v2/pokedex/2'
+export default function Pokemons({poke}) { 
   const urlPoke = 'https://pokeapi.co/api/v2/pokemon/'
-  const [poke, setPoke] = useState([]);
-
-  useEffect(() => {
-    fetch(urlDex)
-      .then(res => res.ok ? res.json() : console.log('buscando'))
-      .then(data => {
-        const {pokemon_entries} = data;
-        setPoke(pokemon_entries);
-      })
-  }, [])
-
   return (  
     <PokeWrapper>
       {
-        poke.map(current => {
+        poke.map((current, index) => {
           return (
             <Cards
-              key={current.entry_number}
+              key={index}
               poke={current.pokemon_species}
               url={urlPoke + current.entry_number}
-              num={current.entry_number}
+              num={index + 1}
+              pokeNum={current.entry_number}
             />
           )
         })

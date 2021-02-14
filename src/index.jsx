@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactDom from 'react-dom'
 import { createGlobalStyle } from 'styled-components';
 import Pokemons from './components/Pokemons'
@@ -13,19 +13,39 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     box-sizing: border-box;
     font-family: sans-serif;
-    font-size: 62.50%;
+  }
+  html{
+    font-size: 62.5%;
   }
 `
 
 export default function App() {
+  const [pokeGen, setPokeGen] = useState([]);
+  const [poke, setPoke] = useState([]);
+
+  const handleGen = (base, limit) => {
+    const newGen = poke.filter(current => current.entry_number >= base && current.entry_number <= limit);
+    setPokeGen(newGen);
+  }
   
+  useEffect(() => {
+    fetch('https://pokeapi.co/api/v2/pokedex/1')
+      .then(res => res.ok ? res.json() : console.log('loading'))
+      .then(data => {
+        const {pokemon_entries} = data;
+        setPoke(pokemon_entries)
+        setPokeGen(pokemon_entries)
+      })
+  }, [])
+
+
   return (
     <>
       <GlobalStyle/>
       <Headers>
-        <SearchBar/>
+        <SearchBar handleGen={handleGen}/>
       </Headers>
-      <Pokemons/>
+      <Pokemons poke={pokeGen}/>
       <Footer>
         <Creditos/>
       </Footer> 

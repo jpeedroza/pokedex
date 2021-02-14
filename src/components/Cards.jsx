@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default function Cards({url, poke, num}){
+export default function Cards({url, poke, num, pokeNum}){
   return (
     <ListWrapper>
       <PokeLink href={url}>
-        <PokeNumber>#{num}</PokeNumber>
+        <PokeNumber>#{pokeNum}</PokeNumber>
         <PokeName>{poke.name}</PokeName>
       </PokeLink>
     </ListWrapper>
@@ -30,7 +30,7 @@ const PokeNumber = styled.p`
   font-weight: 500;
 `
 const ListWrapper = styled.li`
-  width: 100px;
+  width: 133px;
   margin: 20px;
   display: flex;
   align-items: center;

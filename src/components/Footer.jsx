@@ -15,7 +15,8 @@ const DevContent = styled.footer`
   height: 80px;
   display: flex;
   align-items: center;
-  padding: 0 50px
+  padding: 0 50px;
+  margin-top: auto;
 `
 
 export default Footer
